@@ -3,8 +3,13 @@ The plugin of Drone CI to integrate with SonarQube (previously called Sonar), wh
 
 Detail tutorials: [DOCS.md](DOCS.md).
 
+### Purpose of This Fork
+The purpose of this fork is to meet some of the needs I have for the drone-sonar-plugin, primarily including Node.js for the purpose of being able to analyze JavaScript, CSS, and other web application files that are needed by sonar-scanner.
+
+My intention is to continue pulling in changes as I see them from the [original repo](https://github.com/aosapps/drone-sonar-plugin).
+
 ### Build process
-build go binary file: 
+build go binary file:
 `GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o drone-sonar`
 
 build docker image

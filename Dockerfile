@@ -1,4 +1,5 @@
-FROM openjdk:8-jre-alpine
+FROM timbru31/java-node:latest
+
 
 COPY drone-sonar /bin/
 COPY lib/sonar-scanner-cli-3.2.0.1227.zip /bin
