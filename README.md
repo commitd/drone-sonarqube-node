@@ -29,6 +29,7 @@ docker run --rm \
   -e PLUGIN_SOURCES=. \
   -e SONAR_HOST=http://localhost:9000 \
   -e SONAR_TOKEN=60878847cea1a31d817f0deee3daa7868c431433 \
+  -e SONAR_ORGANIZATION=my-organization-name \
   anthonyjesmok/drone-sonar-plugin
 ```
 
@@ -36,6 +37,6 @@ docker run --rm \
 ```yaml
   code-analysis:
     image: anthonyjesmok/drone-sonar-plugin
-    secrets: [sonar_host, sonar_token]
+    secrets: [sonar_host, sonar_token, sonar_project_key, sonar_organization]
 ```
 

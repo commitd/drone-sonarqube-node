@@ -25,7 +25,7 @@ func main() {
 		cli.StringFlag{
 			Name:   "name",
 			Usage:  "project name",
-			EnvVar: "SONAR_PROJECT_NAME",
+			EnvVar: "DRONE_REPO",
 		},
 		cli.StringFlag{
 			Name:   "host",
@@ -36,6 +36,11 @@ func main() {
 			Name:   "token",
 			Usage:  "SonarQube token",
 			EnvVar: "SONAR_TOKEN",
+		},
+		cli.StringFlag{
+			Name:   "organization",
+			Usage:  "SonarQube organization",
+			EnvVar: "SONAR_ORGANIZATION",
 		},
 
 		// advanced parameters
@@ -90,6 +95,7 @@ func run(c *cli.Context) {
 			Name:    		c.String("name"),
 			Host:  			c.String("host"),
 			Token: 			c.String("token"),
+			Organization:	c.String("organization"),
 
 			Version:    	c.String("ver"),
 			Timeout:    	c.String("timeout"),
