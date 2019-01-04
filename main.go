@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/codegangsta/cli"
+	"github.com/urfave/cli"
 )
 
 var build = "0" // build number set at compile time
@@ -20,12 +20,12 @@ func main() {
 		cli.StringFlag{
 			Name:   "key",
 			Usage:  "project key",
-			EnvVar: "DRONE_REPO",
+			EnvVar: "SONAR_PROJECT_KEY",
 		},
 		cli.StringFlag{
 			Name:   "name",
 			Usage:  "project name",
-			EnvVar: "DRONE_REPO",
+			EnvVar: "SONAR_PROJECT_NAME",
 		},
 		cli.StringFlag{
 			Name:   "host",
