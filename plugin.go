@@ -1,26 +1,26 @@
 package main
 
 import (
-	"strings"
 	"fmt"
 	"os/exec"
+	"strings"
 )
 
 type (
 	Config struct {
-		Key   			string
-		Name    		string
-		Host  			string
-		Token 			string
-		Organization 			string
+		Key          string
+		Name         string
+		Host         string
+		Token        string
+		Organization string
 
-		Version    		string
-		Sources    		string
-		Timeout   		string
-		Inclusions    	string
-		Exclusions  	string
-		Level 			string
-		showProfiling 	string
+		Version       string
+		Sources       string
+		Timeout       string
+		Inclusions    string
+		Exclusions    string
+		Level         string
+		showProfiling string
 	}
 	Plugin struct {
 		Config Config

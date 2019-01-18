@@ -11,8 +11,8 @@ var build = "0" // build number set at compile time
 
 func main() {
 	app := cli.NewApp()
-	app.Name = "Drone-Sonar-Plugin"
-	app.Usage = "Drone plugin to integrate with SonarQube."
+	app.Name = "Drone-SonarQube-Node-Plugin"
+	app.Usage = "Drone plugin for SonarQube analysis of node projects."
 	app.Action = run
 	app.Version = fmt.Sprintf("1.0.%s", build)
 	app.Flags = []cli.Flag{
@@ -20,7 +20,7 @@ func main() {
 		cli.StringFlag{
 			Name:   "key",
 			Usage:  "project key",
-			EnvVar: "SONAR_PROJECT_KEY",
+			EnvVar: "DRONE_REPO",
 		},
 		cli.StringFlag{
 			Name:   "name",
@@ -52,7 +52,7 @@ func main() {
 		cli.StringFlag{
 			Name:   "timeout",
 			Usage:  "Web request timeout",
-			Value: 	"60",
+			Value:  "60",
 			EnvVar: "PLUGIN_TIMEOUT",
 		},
 		cli.StringFlag{
@@ -91,19 +91,19 @@ func main() {
 func run(c *cli.Context) {
 	plugin := Plugin{
 		Config: Config{
-			Key:   			c.String("key"),
-			Name:    		c.String("name"),
-			Host:  			c.String("host"),
-			Token: 			c.String("token"),
-			Organization:	c.String("organization"),
+			Key:          c.String("key"),
+			Name:         c.String("name"),
+			Host:         c.String("host"),
+			Token:        c.String("token"),
+			Organization: c.String("organization"),
 
-			Version:    	c.String("ver"),
-			Timeout:    	c.String("timeout"),
-			Sources:    	c.String("sources"),
-			Inclusions:    	c.String("inclusions"),
-			Exclusions:    	c.String("exclusions"),
-			Level:    		c.String("level"),
-			showProfiling:  c.String("showProfiling"),
+			Version:       c.String("ver"),
+			Timeout:       c.String("timeout"),
+			Sources:       c.String("sources"),
+			Inclusions:    c.String("inclusions"),
+			Exclusions:    c.String("exclusions"),
+			Level:         c.String("level"),
+			showProfiling: c.String("showProfiling"),
 		},
 	}
 
