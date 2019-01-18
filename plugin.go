@@ -33,7 +33,6 @@ func (p Plugin) Exec() error {
 		"-Dsonar.projectName=" + p.Config.Name,
 		"-Dsonar.host.url=" + p.Config.Host,
 		"-Dsonar.login=" + p.Config.Token,
-		"-Dsonar.organization=" + p.Config.Organization,
 
 		"-Dsonar.projectVersion=" + p.Config.Version,
 		"-Dsonar.sources=" + p.Config.Sources,
@@ -43,8 +42,12 @@ func (p Plugin) Exec() error {
 		"-Dsonar.log.level=" + p.Config.Level,
 		"-Dsonar.showProfiling=" + p.Config.showProfiling,
 		"-Dsonar.scm.provider=git",
-
 	}
+
+	if p.Config.Organization != "" {
+		args = append(args, "-Dsonar.organization="+p.Config.Organization)
+	}
+
 	cmd := exec.Command("sonar-scanner", args...)
 	// fmt.Printf("==> Executing: %s\n", strings.Join(cmd.Args, " "))
 	output, err := cmd.CombinedOutput()
