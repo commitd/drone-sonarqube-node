@@ -9,4 +9,11 @@ pipeline:
     commands:
       - go build -o drone-sonarqube-node
 
-
+  publish:
+    image: plugins/docker
+    repo: committed/drone-sonarqube-node
+    secrets: [ docker_username, docker_password ]
+    tag: [ '1.0.0', latest ]
+    when:
+      branch: master
+      event: push
