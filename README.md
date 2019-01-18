@@ -10,7 +10,7 @@ The simplest use in a drone pipeline is shown below, you just have to provide se
 
 ```yaml
   code-analysis:
-    image: anthonyjesmok/drone-sonar-plugin
+    image: committed/drone-sonarqube-node
     secrets: [sonar_host, sonar_token]
 ```
 
@@ -36,7 +36,7 @@ Both steps are performed in `./build.sh`
 
 To test the docker image run the docker image with appropriate properties:
 
-```commandline
+```docker
 docker run --rm \
   -e DRONE_REPO=test \
   -e PLUGIN_SOURCES=. \
@@ -47,4 +47,4 @@ docker run --rm \
 
 ## Credits
 
-This is based on the original work by [aosapps](https://github.com/aosapps/drone-sonar-plugin) and the node modified version by [https://github.com/anthonyjesmok/drone-sonar-plugin](https://github.com/anthonyjesmok/drone-sonar-plugin).
+This is based on the original work by [aosapps](https://github.com/aosapps/drone-sonar-plugin) and the node modified version by [anthonyjesmok](https://github.com/anthonyjesmok/drone-sonar-plugin).
