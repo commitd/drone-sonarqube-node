@@ -1,20 +1,12 @@
----
-date: 2018-08-29T00:00:00+00:00
-title: SonarQube
-author: aosapps
-tags: [ Sonar, SonarQube, Analysis, report ]
-logo: sonarqube.svg
-repo: aosapps/drone-sonar-plugin
-image: aosapps/drone-sonar-plugin
----
+# Docs
 
-This plugin can scan your code quality and post the analysis report to your SonarQube server. SonarQube (previously called Sonar), is an open source code quality management platform.
+This plugin can scan your node code and post the analysis report to your SonarQube server.
 
 The below pipeline configuration demonstrates simple usage:
 
 ```yaml
   code-analysis:
-    image: aosapps/drone-sonar-plugin
+    image: committed/drone-sonarqube-node
     secrets: [sonar_host, sonar_token]
 ```
 
@@ -22,8 +14,8 @@ Customized parameters could be specified:
 
 ```diff
   code-analysis:
-    image: aosapps/drone-sonar-plugin
-    secrets: [sonar_host, sonar_token]
+    image: committed/drone-sonarqube-node
++   secrets: [sonar_host, sonar_token, sonar_organization]
 +   ver: 1.0
 +   timeout: 20
 +   sources: .
@@ -35,9 +27,10 @@ Customized parameters could be specified:
 # Secret Reference
 
 Safety first, the host and token are stored in Drone Secrets.
-* `sonar_host`: Host of SonarQube with schema(http/https).
-* `sonar_token`: User token used to post the analysis report to SonarQube Server. Click User -- My Account -- Security -- Generate Tokens.
 
+* `sonar_host`: Host of SonarQube with schema (http/https).
+* `sonar_token`: User token used to post the analysis report to SonarQube Server. Click User > My Account > Security > Generate Tokens.
+* `sonar_organization`: (optional) parameter for use in hosted version such as SonarCloud
 
 # Parameter Reference
 
@@ -46,30 +39,26 @@ Safety first, the host and token are stored in Drone Secrets.
 * `sources`: Comma-separated paths to directories containing source files. 
 * `inclusions`: Comma-delimited list of file path patterns to be included in analysis. When set, only files matching the paths set here will be included in analysis.
 * `exclusions`: Comma-delimited list of file path patterns to be excluded from analysis. Example: `**/static/**/*,**/dist/**/*.js`.
-* `level`: Control the quantity / level of logs produced during an analysis. Default value `INFO`. 
-    * DEBUG: Display INFO logs + more details at DEBUG level.
-    * TRACE: Display DEBUG logs + the timings of all ElasticSearch queries and Web API calls executed by the SonarQube Scanner.
+* `level`: Control the quantity / level of logs produced during an analysis. Default value `INFO`.
+  * DEBUG: Display INFO logs + more details at DEBUG level.
+  * TRACE: Display DEBUG logs + the timings of all ElasticSearch queries and Web API calls executed by the SonarQube Scanner.
 * `showProfiling`: Display logs to see where the analyzer spends time. Default value `false`
+* `projectKey`: defaults to `DRONE_REPO`
+* `projectName`: defaults to `DRONE_REPO`
 
-# Notes
-
-* projectKey: `DRONE_REPO`
-* projectName: `DRONE_REPO`
-* You could also add a file named `sonar-project.properties` at the root of your project to specify parameters.
-
-Code repository: [aosapps/drone-sonar-plugin](https://github.com/aosapps/drone-sonar-plugin).  
+You could also add a file named `sonar-project.properties` at the root of your project to specify parameters.
 SonarQube Parameters: [Analysis Parameters](https://docs.sonarqube.org/display/SONAR/Analysis+Parameters)
 
-# Test your SonarQube Server:
+# Troubleshooting - Test your SonarQube Server:
 
 Replace the parameter values with your own：
 
 ```commandline
 sonar-scanner \
-  -Dsonar.projectKey=Neptune:news \
+  -Dsonar.projectKey=MyProject:test \
   -Dsonar.sources=. \
-  -Dsonar.projectName=Neptune/news \
+  -Dsonar.projectName=MyProject/test \
   -Dsonar.projectVersion=1.0 \
-  -Dsonar.host.url=http://localhost:9000 \
-  -Dsonar.login=60878847cea1a31d817f0deee3daa7868c431433
+  -Dsonar.host.url=http://mysonarqube:9000 \
+  -Dsonar.login=1234567890987654321234567890987654321234
 ```

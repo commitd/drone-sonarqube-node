@@ -1,42 +1,48 @@
 # drone-sonar-plugin
-The plugin of Drone CI to integrate with SonarQube (previously called Sonar), which is an open source code quality management platform.
 
-Detail tutorials: [DOCS.md](DOCS.md).
+A plugin for Drone CI to run SonarQube analysis on node projects (JavaScript/TypeScript).
 
-### Purpose of This Fork
-The purpose of this fork is to meet some of the needs I have for the drone-sonar-plugin, primarily including Node.js for the purpose of being able to analyze JavaScript, CSS, and other web application files that are needed by sonar-scanner.
+## Use
 
-My intention is to continue pulling in changes as I see them from the [original repo](https://github.com/aosapps/drone-sonar-plugin).
+The simplest use in a drone pipeline is shown below, you just have to provide secrets for the SonarQube host (`sonar-host`) and login token (`sonar-token`).
 
-Here are a list of the changes:
+```yaml
+  code-analysis:
+    image: anthonyjesmok/drone-sonar-plugin
+    secrets: [sonar_host, sonar_token]
+```
 
-1. Node.js comes packaged with the scanner for usage with web application files. This comes from a fork of the OpenJDK Docker image that also installs Node.js.
-2. More variables can be specified. This is important if you want your project to work on a cloud service like SonarCloud.
-3. It uses the CLI library from urfave, who took over the project from codegangsta. This means `go get` runs with ease.
+For full parameter details see [DOCS.md](DOCS.md).
 
-### Build process
-build go binary file:
-`GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o drone-sonar`
+## Development
 
-build docker image
-`docker build -t anthonyjesmok/drone-sonar-plugin .`
+To build the go binary file:
 
+```bash
+GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o drone-sonarqube-node
+```
 
-### Testing the docker image:
+To build the docker image:
+
+```bash
+docker build -t committed/drone-sonarqube-node .
+```
+
+Both steps are performed in `./build.sh`
+
+### Testing
+
+To test the docker image run the docker image with appropriate properties:
+
 ```commandline
 docker run --rm \
   -e DRONE_REPO=test \
   -e PLUGIN_SOURCES=. \
   -e SONAR_HOST=http://localhost:9000 \
   -e SONAR_TOKEN=60878847cea1a31d817f0deee3daa7868c431433 \
-  -e SONAR_ORGANIZATION=my-organization-name \
-  anthonyjesmok/drone-sonar-plugin
+  committed/drone-sonarqube-node
 ```
 
-### Pipeline example
-```yaml
-  code-analysis:
-    image: anthonyjesmok/drone-sonar-plugin
-    secrets: [sonar_host, sonar_token, sonar_project_key, sonar_organization]
-```
+## Credits
 
+This is based on the original work by [aosapps](https://github.com/aosapps/drone-sonar-plugin) and the node modified version by [https://github.com/anthonyjesmok/drone-sonar-plugin](https://github.com/anthonyjesmok/drone-sonar-plugin).
