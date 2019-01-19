@@ -1,8 +1,8 @@
-# drone-sonar-plugin
+# drone-sonarqube-node
 
 [![Build Status](https://drone.committed.software/api/badges/commitd/drone-sonarqube-node/status.svg)](https:://drone.committed.software/commitd/drone-sonarqube-node)  [![Docker Pulls](https://img.shields.io/docker/pulls/committed/drone-sonarqube-node.svg?style=flat)](https://hub.docker.com/r/committed/drone-sonarqube-node)
 
-A plugin for Drone CI to run SonarQube analysis on node projects (JavaScript/TypeScript).
+A plugin for Drone CI to run SonarQube analysis on node, JavaScript and TypeScript projects.
 
 ## Use
 
