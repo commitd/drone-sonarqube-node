@@ -1,19 +1,31 @@
-pipeline:
-  build:
+---
+kind: pipeline
+type: docker
+name: drone-sonarqube-node
+
+steps:
+  - name: build
     image: golang:1.8
     environment:
-      - GOPATH=/drone
-      - GOOS=linux 
-      - GOARCH=amd64 
-      - CGO_ENABLED=0 
+      GOPATH: /drone
+      GOOS: linux
+      GOARCH: amd64
+      CGO_ENABLED: 0
     commands:
+      - go get github.com/urfave/cli
       - go build -o drone-sonarqube-node
 
-  publish:
+  - name: publish
     image: plugins/docker
-    repo: committed/drone-sonarqube-node
-    secrets: [ docker_username, docker_password ]
-    tag: [ '1.0.0', latest ]
+    settings:
+      repo: committed/drone-sonarqube-node
+      username:
+        from_secret: dockerhub_username
+      password:
+        from_secret: dockerhub_password
+      tag:
+        - "1.0.0"
+        - latest
     when:
       branch: master
       event: push

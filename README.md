@@ -1,6 +1,6 @@
 # drone-sonarqube-node
 
-[![Build Status](https://drone.committed.software/api/badges/commitd/drone-sonarqube-node/status.svg)](https:://drone.committed.software/commitd/drone-sonarqube-node)  [![Docker Pulls](https://img.shields.io/docker/pulls/committed/drone-sonarqube-node.svg?style=flat)](https://hub.docker.com/r/committed/drone-sonarqube-node)
+[![Build Status](https://drone.committed.software/api/badges/commitd/drone-sonarqube-node/status.svg)](https://drone.committed.software/commitd/drone-sonarqube-node) [![Docker Pulls](https://img.shields.io/docker/pulls/committed/drone-sonarqube-node.svg?style=flat)](https://hub.docker.com/r/committed/drone-sonarqube-node)
 
 A plugin for Drone CI to run SonarQube analysis on node, JavaScript and TypeScript projects.
 
@@ -9,14 +9,20 @@ A plugin for Drone CI to run SonarQube analysis on node, JavaScript and TypeScri
 The simplest use in a drone pipeline is shown below, you just have to provide secrets for the SonarQube host (`sonar-host`) and login token (`sonar-token`).
 
 ```yaml
-  code-analysis:
-    image: committed/drone-sonarqube-node
-    secrets: [sonar_host, sonar_token]
+- name: code-analysis
+  image: committed/drone-sonarqube-node
+  settings:
+    host:
+      from_secret: sonar_host
+    token:
+      from_secret: sonar_token
 ```
 
 For full parameter details see [DOCS.md](DOCS.md).
 
 ## Development
+
+Dependencies are managed with `dep` and stored in the vendor directory
 
 To build the go binary file:
 
