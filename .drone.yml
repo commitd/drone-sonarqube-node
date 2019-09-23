@@ -5,15 +5,13 @@ name: drone-sonarqube-node
 
 steps:
   - name: build
-    image: golang:1.8
+    image: golang:1.13
     environment:
-      GOPATH: /drone
       GOOS: linux
       GOARCH: amd64
       CGO_ENABLED: 0
     commands:
-      - go get github.com/urfave/cli
-      - go build -o drone-sonarqube-node
+      - go build -i -v -o drone-sonarqube-node
 
   - name: publish
     image: plugins/docker
