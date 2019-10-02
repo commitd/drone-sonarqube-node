@@ -1,6 +1,7 @@
 # drone-sonarqube-node
 
-[![Build Status](https://drone.committed.software/api/badges/commitd/drone-sonarqube-node/status.svg)](https://drone.committed.software/commitd/drone-sonarqube-node) [![Docker Pulls](https://img.shields.io/docker/pulls/committed/drone-sonarqube-node.svg?style=flat)](https://hub.docker.com/r/committed/drone-sonarqube-node)
+[![Docker Build Status](https://img.shields.io/docker/cloud/build/committed/drone-sonarqube-node?style=flat-square)](https://hub.docker.com/r/committed/drone-sonarqube-node)
+[![Docker Pulls](https://img.shields.io/docker/pulls/committed/drone-sonarqube-node?style=flat-square)](https://hub.docker.com/r/committed/drone-sonarqube-node)
 
 A plugin for Drone CI to run SonarQube analysis on node, JavaScript and TypeScript projects.
 
@@ -24,13 +25,13 @@ For full parameter details see [DOCS.md](DOCS.md).
 
 Dependencies are managed with `dep` and stored in the vendor directory
 
-To build the go binary file:
+To build the go binary file (`build.sh`):
 
 ```bash
 GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o drone-sonarqube-node
 ```
 
-To build the docker image:
+To build the docker image (`docker.sh`):
 
 ```bash
 docker build -t committed/drone-sonarqube-node .
